@@ -1,0 +1,11 @@
+.qiuze-header__element {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 1s;
+}
+.qiuze-header__element:hover {
+    background-color: whitesmoke;
+    color: black;
+}

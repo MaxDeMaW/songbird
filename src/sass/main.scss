@@ -1,9 +1,19 @@
 @import './themes/dark';
 @import './abstract/constants';
 @import './layout/header';
-@import './layout/quizeTypes';
 @import './layout/quizeTask';
 @import './components/birdDescription';
-@import './components/selectorAnswer';
-@import './components/selectorAnswer__btn';
-@import './components/quizeNext';
+
+// ************** Player *****************
+.rhap_container {
+    width: 50%;
+    min-width: 280px;
+    height: 90px;
+    padding: 10px 15px;
+    background-color: black;
+    box-shadow: none;
+  }
+  .rhap_time {
+    color: white;
+  }
+  // ***************************************
