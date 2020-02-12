@@ -8,13 +8,21 @@ import SelectorAnswer from './components/selectorAnswer/selectorAnswer';
 import BirdDescription from './components/birdDescription/birdDescription';
 import birdImage from './assets/images/bird.jpg';
 
+import AudioPlayer from 'react-h5-audio-player';
+
 import QuizeNext from './components/quizeNext/quizeNext';
 import birdsData from './assets/birdData'
 import './sass/main.scss';
 
+import guess from './assets/audio/guess.mp3';
+import notguess from './assets/audio/notguess.mp3';
+
+
 class App extends React.Component {
   constructor() {
     super();
+    
+
     this.stage = 0;
     this.maxStages = 0;
     this.score = 0;
@@ -31,12 +39,12 @@ class App extends React.Component {
       quizeBirdImage: birdImage,
       quizeAnswerBirdInfo: this.data[this.stage].birds[0],
       isActiveNextStage: false,
-      attemptGuess: 0
+      attemptGuess: 0,
+      soundEffect: '',
+      stateButtons: [0,0,0,0,0,0]
     };
     this.initializeNewGame();
   }
-
-
 
   initializeNewGame() {
       this.maxStages = this.data.length-1;
@@ -80,6 +88,15 @@ class App extends React.Component {
       this.isFinish = true;
       this.stage=0;
     }
+
+    //обновить кнопки
+    let eptyState = [0,0,0,0,0,0];
+    this.setState((state) => {
+      return {
+        stateButtons: eptyState
+      };
+    });
+
     this.setState((state) => {
       return {
         //поменять массив названий птиц в стейт
@@ -100,22 +117,37 @@ class App extends React.Component {
     });
   }
 
+  setActiveButton(numberElement, stat) {
+    let arrayState = [...this.state.stateButtons];
+    arrayState[numberElement] = stat;
+
+    //обновить state
+    this.setState((state) => {
+      return {
+        stateButtons: arrayState
+      };
+    });
+  }
+
   addPoints() {
-    const addingScore = (this.state.attemptGuess>5) ? 0 : 6 - this.state.attemptGuess;
+    const addingScore = (this.state.attemptGuess>4) ? 0 : 5 - this.state.attemptGuess;
     return addingScore;
   }
 
   clickAnswerBtn(bird) {
+    
     this.setState((state) => {
       return {
         attemptGuess: this.state.attemptGuess + 1,
-        quizeAnswerBirdInfo: this.data[this.stage].birds[bird]
+        quizeAnswerBirdInfo: this.data[this.stage].birds[bird],
+        soundEffect: guess
       };
     });
 
-
     if (bird === this.uncnownBird) 
     {
+      this.setActiveButton(bird, 1);
+
       //показать угаданную птицу
       this.showBird(bird);
       
@@ -128,6 +160,8 @@ class App extends React.Component {
           attemptGuess: 6
         };
       });
+    } else {
+      this.setActiveButton(bird, 2);
     }
   };
 
@@ -147,7 +181,7 @@ class App extends React.Component {
   render() {
     let classNameQuize = 'quize';
     let classNameCongratulate = 'quize-congratulate';
-    let extraCongratilation = (this.state.points>10) ? 'AWESOME! Теперь ты знаешь кто чиркнул! 100% из 100!' : 'Совершенствуйся дальше :)';
+    let extraCongratilation = (this.state.points>24) ? 'AWESOME! Теперь ты знаешь кто чиркнул! 100% из 100!' : 'Совершенствуйся дальше :)';
     if (this.isFinish) {
       classNameQuize = ' hidden';
       classNameCongratulate = 'quize-congratulate';
@@ -163,7 +197,8 @@ class App extends React.Component {
           <QuizeTask voiceBirds={this.state.voiceBirds} quizeBirdName={this.state.quizeBirdName} quizeBirdImage={this.state.quizeBirdImage}/>
           <div className="answer-container">
             <SelectorAnswer birdName={this.state.birds}
-                            clickAnswer={(event) => this.clickAnswerBtn(event)}/>
+                            clickAnswer={(event) => this.clickAnswerBtn(event)}
+                            stateButtons={this.state.stateButtons}/>
             <BirdDescription attemptGuess={this.state.attemptGuess} quizeAnswerBirdInfo={this.state.quizeAnswerBirdInfo}/>
           </div>
           <QuizeNext score={1} isActiveNextStage={this.state.isActiveNextStage} nextQuize={()=> this.nextQuize()}/>
@@ -171,6 +206,9 @@ class App extends React.Component {
         <div className={classNameCongratulate}>
           <p>Поздравляем! Вы выиграли!!! Вы набрали: {this.state.points} {extraCongratilation}</p>
           <p className='quize-restart' onClick = {() => this.restartGame()}>Начать игру заново</p>
+        </div>
+        <div style={{display: 'none'}}>
+          {/* <AudioPlayer autoPlay src={this.state.soundEffect}/> */}
         </div>
       </div>
     );
