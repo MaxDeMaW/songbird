@@ -16,8 +16,8 @@ class QuizeNext extends React.Component {
 
     return <div className={classNames}
                 onClick = {this.nextQuizeClick}>
-      Next Level
-      </div>;
+                Next Level
+          </div>;
   }
 }
 

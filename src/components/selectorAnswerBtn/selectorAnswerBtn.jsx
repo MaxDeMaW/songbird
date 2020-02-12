@@ -8,7 +8,6 @@ class SelectorAnswerBtn extends React.PureComponent {
   }
 
   checkAnswer() {
-    // console.log('Нажата:'+this.props.birdName);
     this.props.clickAnswer();
   };
 

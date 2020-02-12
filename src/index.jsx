@@ -8,21 +8,13 @@ import SelectorAnswer from './components/selectorAnswer/selectorAnswer';
 import BirdDescription from './components/birdDescription/birdDescription';
 import birdImage from './assets/images/bird.jpg';
 
-import AudioPlayer from 'react-h5-audio-player';
-
 import QuizeNext from './components/quizeNext/quizeNext';
 import birdsData from './assets/birdData'
 import './sass/main.scss';
 
-import guess from './assets/audio/guess.mp3';
-import notguess from './assets/audio/notguess.mp3';
-
-
 class App extends React.Component {
   constructor() {
     super();
-    
-
     this.stage = 0;
     this.maxStages = 0;
     this.score = 0;
@@ -40,7 +32,6 @@ class App extends React.Component {
       quizeAnswerBirdInfo: this.data[this.stage].birds[0],
       isActiveNextStage: false,
       attemptGuess: 0,
-      soundEffect: '',
       stateButtons: [0,0,0,0,0,0]
     };
     this.initializeNewGame();
@@ -51,9 +42,7 @@ class App extends React.Component {
       this.getBirdsListToQuize(this.stage);
   }
 
-  //рассекретить птицу
   showBird(bird) {
-    // в стейте сохранить название угаданной птицы
     this.setState((state) => {
       return {
         quizeBirdName: this.data[this.stage].birds[bird].name,
@@ -62,19 +51,13 @@ class App extends React.Component {
     });
   }
 
-  //показать инфо о птице в ответе
-  showInfoAboutBird() {
-
-  }
-
   getRandomBird() {
-    //Получить
     this.uncnownBird = Math.floor(Math.random() * Math.floor(4));
     return this.uncnownBird;
   }
 
   getBirdsListToQuize(stageQuize) {
-    //птицы в нужном квизе
+
     const listBirdsNameInQuize = this.data[stageQuize].birds.map(({name})=>name);
     return listBirdsNameInQuize;
   }
@@ -89,7 +72,6 @@ class App extends React.Component {
       this.stage=0;
     }
 
-    //обновить кнопки
     let eptyState = [0,0,0,0,0,0];
     this.setState((state) => {
       return {
@@ -99,19 +81,12 @@ class App extends React.Component {
 
     this.setState((state) => {
       return {
-        //поменять массив названий птиц в стейт
         birds: this.getBirdsListToQuize(this.stage),
-        //поменять
         currentStage: this.typesOfQuize[this.stage],
-        // скрыть значение загаданной птицы
         quizeBirdName: '***',
-        // сделать неактивным кнопку следующий уровень
         isActiveNextStage: false,
-        // обнулить количество попыток угадывания
         quizeBirdImage: birdImage,
-        // загрузить звук птицы которую угадываем
         voiceBirds: this.data[this.stage].birds[this.uncnownBird].audio,
-        // обнуляем количество попыток угадывания для вычисления очков
         attemptGuess: 0
       };
     });
@@ -121,7 +96,6 @@ class App extends React.Component {
     let arrayState = [...this.state.stateButtons];
     arrayState[numberElement] = stat;
 
-    //обновить state
     this.setState((state) => {
       return {
         stateButtons: arrayState
@@ -135,27 +109,21 @@ class App extends React.Component {
   }
 
   clickAnswerBtn(bird) {
-    
     this.setState((state) => {
       return {
         attemptGuess: this.state.attemptGuess + 1,
-        quizeAnswerBirdInfo: this.data[this.stage].birds[bird],
-        soundEffect: guess
+        quizeAnswerBirdInfo: this.data[this.stage].birds[bird]
       };
     });
 
     if (bird === this.uncnownBird) 
     {
       this.setActiveButton(bird, 1);
-
-      //показать угаданную птицу
       this.showBird(bird);
-      
-      // this.getRandomBird();
+
       this.setState((state) => {
         return {
           isActiveNextStage : true,
-          // voiceBirds: this.data[this.stage].birds[this.uncnownBird].audio,
           points: state.points + this.addPoints(),
           attemptGuess: 6
         };
@@ -181,7 +149,7 @@ class App extends React.Component {
   render() {
     let classNameQuize = 'quize';
     let classNameCongratulate = 'quize-congratulate';
-    let extraCongratilation = (this.state.points>24) ? 'AWESOME! Теперь ты знаешь кто чиркнул! 100% из 100!' : 'Совершенствуйся дальше :)';
+    let extraCongratilation = (this.state.points>29) ? 'AWESOME! Теперь ты знаешь кто чиркнул! 100% из 100!' : 'Совершенствуйся дальше :)';
     if (this.isFinish) {
       classNameQuize = ' hidden';
       classNameCongratulate = 'quize-congratulate';
@@ -206,9 +174,6 @@ class App extends React.Component {
         <div className={classNameCongratulate}>
           <p>Поздравляем! Вы выиграли!!! Вы набрали: {this.state.points} {extraCongratilation}</p>
           <p className='quize-restart' onClick = {() => this.restartGame()}>Начать игру заново</p>
-        </div>
-        <div style={{display: 'none'}}>
-          {/* <AudioPlayer autoPlay src={this.state.soundEffect}/> */}
         </div>
       </div>
     );
