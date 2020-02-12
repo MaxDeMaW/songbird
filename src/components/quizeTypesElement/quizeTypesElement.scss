@@ -1,4 +1,4 @@
-.qiuze-header__element {
+.qiuze-types__element {
     width: 100%;
     text-align: center;
     cursor: pointer;
@@ -6,14 +6,13 @@
     transition: 1s;
 }
 .active,
-.qiuze-header__element:hover {
+.qiuze-types__element:hover {
     background-color: whitesmoke;
     color: black;
 }
 
-
 @media (max-width: 500px) {
-    .qiuze-header__element p {
+    .qiuze-types__element p {
         margin: 0px;
     }
 }

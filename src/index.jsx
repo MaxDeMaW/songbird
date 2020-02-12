@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from './components/header';
+import Header from './components/header/header';
 import QuizeTypes from './components/quizeTypes/quizeTypes';
 import QuizeTask from './components/quizeTask/quizeTask';
 import SelectorAnswer from './components/selectorAnswer/selectorAnswer';
@@ -20,7 +20,7 @@ class App extends React.Component {
     this.score = 0;
     this.data = birdsData;
     this.uncnownBird = null;
-    this.typesOfQuize = ['Разминка', 'Воробьиные', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'];
+    this.typesOfQuize = ['Разминка', 'Воробьиные', 'Лесные', 'Певчие', 'Хищные', 'Морские'];
     this.state = {
       points: 0,
       birds: this.getBirdsListToQuize(0),

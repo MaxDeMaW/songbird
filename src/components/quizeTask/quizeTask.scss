@@ -11,3 +11,9 @@
     display: flex;
     margin-bottom: 20px;
 }
+
+@media (max-width: 500px) {
+    .quize-task {
+        display: block;
+    }
+}

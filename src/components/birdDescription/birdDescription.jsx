@@ -22,11 +22,9 @@ class BirdDescription extends React.PureComponent {
         <div className={classNameDescription}>
           <div className="quize-task">
           <img className="qiuze-task__image" src={this.props.quizeAnswerBirdInfo.image} alt="quize bird" />
-          <div>
+          <div className="quize-task__name">
             <p>{this.props.quizeAnswerBirdInfo.name}</p>
-            <div className="quize-task__rightWrapper">
-              <p>{this.props.quizeAnswerBirdInfo.species}</p>
-            </div>
+            <p>{this.props.quizeAnswerBirdInfo.species}</p>
           </div>
         </div>
         <AudioPlayer 

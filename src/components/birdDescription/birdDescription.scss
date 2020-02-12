@@ -2,9 +2,21 @@
     background-color: #303030;
     width: 70%;
 }
-.bird-description__informer {
-
+.quize-task__name {
+    margin-left: 20px;
+    text-align: left;
 }
 .disabled {
     display: none;
 }
+
+@media (max-width: 500px) {
+    .bird-description {
+        background-color: #303030;
+        width: 100%;
+    }
+    .quize-task__name {
+        margin-left: 0px;
+        text-align: center;
+    }
+  }

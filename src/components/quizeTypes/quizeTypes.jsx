@@ -1,6 +1,6 @@
 import React from 'react';
 import './quizeTypes.scss';
-import QuizeHeaderElement from '../quizeHeaderElement/quizeHeaderElement';
+import QuizeTypesElement from '../quizeTypesElement/quizeTypesElement';
 
 class QuizeTypes extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class QuizeTypes extends React.Component {
   render() {
     const namesOfQuizes = this.props.quizesTypes.map((item, indx) => {
       return (
-        <QuizeHeaderElement name={item} currentStage={this.props.currentStage} key={indx} />
+        <QuizeTypesElement name={item} currentStage={this.props.currentStage} key={indx} />
       );
     });
 

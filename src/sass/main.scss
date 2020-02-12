@@ -1,5 +1,15 @@
-@import './themes/dark';
-@import './layout/header';
+html,
+body {
+    background-color: #222222;
+    color: whitesmoke;
+}
+.main {
+    max-width: 1200px;
+    text-align: center;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 // ************** Player *****************
 .rhap_container {
@@ -19,3 +29,16 @@
   color: white;
 }
 // ***************************************
+
+// ************** CONTAINER **************
+.answer-container {
+  display: flex;
+}
+// ***************************************
+
+
+@media (max-width: 500px) {
+  .answer-container {
+    display: block;
+  }
+}
