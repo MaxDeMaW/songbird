@@ -1,6 +1,6 @@
 import React from 'react';
 
-import QuizeTask from './quizeTask';
+import QuizeTask from './quizeTask/quizeTask';
 
 class BirdDescription extends React.PureComponent {
   render() {

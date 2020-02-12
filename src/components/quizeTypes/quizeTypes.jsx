@@ -8,14 +8,15 @@ class QuizeTypes extends React.Component {
   }
 
   render() {
+    const namesOfQuizes = this.props.quizesTypes.map((item, indx) => {
+      return (
+        <QuizeHeaderElement name={item} currentStage={this.props.currentStage} key={indx} />
+      );
+    });
+
     return (
       <div className="quize-types">
-        <QuizeHeaderElement name={this.props.quizesTypes[0]} />
-        <QuizeHeaderElement name={this.props.quizesTypes[1]} />
-        <QuizeHeaderElement name={this.props.quizesTypes[2]} />
-        <QuizeHeaderElement name={this.props.quizesTypes[3]} />
-        <QuizeHeaderElement name={this.props.quizesTypes[4]} />
-        <QuizeHeaderElement name={this.props.quizesTypes[5]} />
+        { namesOfQuizes }
       </div>
     );
   }

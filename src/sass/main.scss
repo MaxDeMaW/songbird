@@ -1,19 +1,22 @@
 @import './themes/dark';
-@import './abstract/constants';
 @import './layout/header';
-@import './layout/quizeTask';
 @import './components/birdDescription';
 
 // ************** Player *****************
 .rhap_container {
-    width: 50%;
-    min-width: 280px;
-    height: 90px;
-    padding: 10px 15px;
-    background-color: black;
-    box-shadow: none;
-  }
-  .rhap_time {
-    color: white;
-  }
-  // ***************************************
+  width: 100%;
+  min-width: 280px;
+  height: 90px;
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+}
+
+.rhap_progress-indicator {
+  background: #008966;
+}
+
+.rhap_time {
+  color: white;
+}
+// ***************************************
