@@ -36,6 +36,14 @@ body {
 }
 // ***************************************
 
+.hidden {
+  display: none;
+}
+
+.quize-restart {
+  background: #008966;
+  cursor: pointer;
+}
 
 @media (max-width: 500px) {
   .answer-container {

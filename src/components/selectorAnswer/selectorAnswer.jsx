@@ -15,6 +15,7 @@ class SelectorAnswer extends React.PureComponent {
         <SelectorAnswerBtn birdName={this.props.birdName[2].toString()} clickAnswer={() => this.props.clickAnswer(2)} />
         <SelectorAnswerBtn birdName={this.props.birdName[3].toString()} clickAnswer={() => this.props.clickAnswer(3)} />
         <SelectorAnswerBtn birdName={this.props.birdName[4].toString()} clickAnswer={() => this.props.clickAnswer(4)} />
+        <SelectorAnswerBtn birdName={this.props.birdName[5].toString()} clickAnswer={() => this.props.clickAnswer(5)} />
       </div>
     );
   }

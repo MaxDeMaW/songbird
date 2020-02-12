@@ -165,19 +165,38 @@ class App extends React.Component {
 
   }
 
+  restartGame() {
+    document.location.reload(true);
+  }
+
   render() {
+    let classNameQuize = 'quize';
+    let classNameCongratulate = 'quize-congratulate';
+    if (this.stage>2) {
+      classNameQuize = ' hidden';
+      classNameCongratulate = 'quize-congratulate';
+    } else {
+      classNameQuize = 'quize';
+      classNameCongratulate = 'quize-congratulate hidden';
+    }
     return (
       <div className="main">
         <Header points={this.state.points}/>
-        <QuizeTypes quizesTypes={this.typesOfQuize}  currentStage={this.state.currentStage} />
-        <QuizeTask voiceBirds={this.state.voiceBirds} quizeBirdName={this.state.quizeBirdName} quizeBirdImage={this.state.quizeBirdImage}/>
-        <div className="answer-container">
-          <SelectorAnswer birdName={this.state.birds}
-                          clickAnswer={(event) => this.clickAnswerBtn(event)}/>
-          <BirdDescription attemptGuess={this.state.attemptGuess} quizeAnswerBirdInfo={this.state.quizeAnswerBirdInfo}/>
+        <div className={classNameQuize}>
+          <QuizeTypes quizesTypes={this.typesOfQuize}  currentStage={this.state.currentStage} />
+          <QuizeTask voiceBirds={this.state.voiceBirds} quizeBirdName={this.state.quizeBirdName} quizeBirdImage={this.state.quizeBirdImage}/>
+          <div className="answer-container">
+            <SelectorAnswer birdName={this.state.birds}
+                            clickAnswer={(event) => this.clickAnswerBtn(event)}/>
+            <BirdDescription attemptGuess={this.state.attemptGuess} quizeAnswerBirdInfo={this.state.quizeAnswerBirdInfo}/>
+          </div>
+          <QuizeNext score={1} isActiveNextStage={this.state.isActiveNextStage} nextQuize={()=> this.nextQuize()}/>
+          <p>{this.state.voiceBirds}</p>
         </div>
-        <QuizeNext score={1} isActiveNextStage={this.state.isActiveNextStage} nextQuize={()=> this.nextQuize()}/>
-      <p>{this.state.voiceBirds}</p>
+        <div className={classNameCongratulate}>
+          <p>Поздравляем! Вы выиграли!!! Вы набрали: {this.state.points}</p>
+          <p className='quize-restart' onClick = {() => this.restartGame()}>Начать игру заново</p>
+        </div>
       </div>
     );
   }

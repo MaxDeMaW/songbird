@@ -1,9 +1,11 @@
 .selector-answer{
     width: 30%;
+    padding-right: 20px;
 }
 
 @media (max-width: 500px) {
     .selector-answer{
+        padding-right: 0px;
         width: 100%;
         margin-bottom: 20px;
     }
