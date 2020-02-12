@@ -21,11 +21,12 @@ class App extends React.Component {
     this.data = birdsData;
     this.uncnownBird = null;
     this.typesOfQuize = ['Разминка', 'Воробьиные', 'Лесные', 'Певчие', 'Хищные', 'Морские'];
+    this.isFinish = false;
     this.state = {
       points: 0,
       birds: this.getBirdsListToQuize(0),
       currentStage: this.typesOfQuize[this.stage],
-      voiceBirds: this.data[this.stage].birds[0].audio,
+      voiceBirds: this.data[this.stage].birds[this.getRandomBird()].audio,
       quizeBirdName: '***',
       quizeBirdImage: birdImage,
       quizeAnswerBirdInfo: this.data[this.stage].birds[0],
@@ -38,16 +39,8 @@ class App extends React.Component {
 
 
   initializeNewGame() {
-    console.log('NewGame Start!');
-
       this.maxStages = this.data.length-1;
-
       this.getBirdsListToQuize(this.stage);
-      console.log( this.getBirdsListToQuize(this.stage));
-
-      this.getRandomBird();
-  
-
   }
 
   //рассекретить птицу
@@ -59,7 +52,6 @@ class App extends React.Component {
         quizeBirdImage: this.data[this.stage].birds[bird].image
       };
     });
-
   }
 
   //показать инфо о птице в ответе
@@ -70,34 +62,24 @@ class App extends React.Component {
   getRandomBird() {
     //Получить
     this.uncnownBird = Math.floor(Math.random() * Math.floor(4));
-    console.log('Задумана птица:'+this.data[this.stage].birds[this.uncnownBird].name);
+    return this.uncnownBird;
   }
 
   getBirdsListToQuize(stageQuize) {
-    // let quizeNumber;
-    // if (stageQuize>this.data.length-1) {
-    //   quizeNumber = 1;
-    // } else {
-    //   quizeNumber = stageQuize;
-    // }
-
-    //получить количество квизов
-    // console.log("Количество птиц " + this.data.length);
-
     //птицы в нужном квизе
     const listBirdsNameInQuize = this.data[stageQuize].birds.map(({name})=>name);
-
     return listBirdsNameInQuize;
   }
 
   nextQuize() {
     if (this.stage<this.maxStages) { 
       this.stage++;
+      this.getRandomBird();
+
     } else {
+      this.isFinish = true;
       this.stage=0;
     }
-    console.log(this.stage);
-    console.log(this.getBirdsListToQuize(this.stage));
     this.setState((state) => {
       return {
         //поменять массив названий птиц в стейт
@@ -110,50 +92,43 @@ class App extends React.Component {
         isActiveNextStage: false,
         // обнулить количество попыток угадывания
         quizeBirdImage: birdImage,
+        // загрузить звук птицы которую угадываем
+        voiceBirds: this.data[this.stage].birds[this.uncnownBird].audio,
+        // обнуляем количество попыток угадывания для вычисления очков
         attemptGuess: 0
       };
     });
+  }
 
-    console.log('TODO скрытые значки птицы');
-    console.log('TODO деактивация кнопки');
-
-    // console.log('from state: '+this.state.birds);
+  addPoints() {
+    const addingScore = (this.state.attemptGuess>5) ? 0 : 6 - this.state.attemptGuess;
+    return addingScore;
   }
 
   clickAnswerBtn(bird) {
     this.setState((state) => {
       return {
-        attemptGuess: this.state.attemptGuess + 1
-      };
-    });
-
-
-    this.setState((state) => {
-      return {
+        attemptGuess: this.state.attemptGuess + 1,
         quizeAnswerBirdInfo: this.data[this.stage].birds[bird]
       };
     });
 
+
     if (bird === this.uncnownBird) 
     {
-      console.log('УГАДАЛИ!!!');
-
+      //показать угаданную птицу
       this.showBird(bird);
-
-      console.log('TODO показать птицу в верху');
-    
-      this.getRandomBird();
-
-      console.log('TODO загрузить звук');  
+      
+      // this.getRandomBird();
       this.setState((state) => {
         return {
           isActiveNextStage : true,
-          voiceBirds: this.data[this.stage].birds[this.uncnownBird].audio,
-          points: state.points + 5 -state.attemptGuess
+          // voiceBirds: this.data[this.stage].birds[this.uncnownBird].audio,
+          points: state.points + this.addPoints(),
+          attemptGuess: 6
         };
       });
     }
-    console.log(bird);
   };
 
   addScore() {
@@ -172,7 +147,8 @@ class App extends React.Component {
   render() {
     let classNameQuize = 'quize';
     let classNameCongratulate = 'quize-congratulate';
-    if (this.stage>2) {
+    let extraCongratilation = (this.state.points>10) ? 'AWESOME! Теперь ты знаешь кто чиркнул! 100% из 100!' : 'Совершенствуйся дальше :)';
+    if (this.isFinish) {
       classNameQuize = ' hidden';
       classNameCongratulate = 'quize-congratulate';
     } else {
@@ -191,10 +167,9 @@ class App extends React.Component {
             <BirdDescription attemptGuess={this.state.attemptGuess} quizeAnswerBirdInfo={this.state.quizeAnswerBirdInfo}/>
           </div>
           <QuizeNext score={1} isActiveNextStage={this.state.isActiveNextStage} nextQuize={()=> this.nextQuize()}/>
-          <p>{this.state.voiceBirds}</p>
         </div>
         <div className={classNameCongratulate}>
-          <p>Поздравляем! Вы выиграли!!! Вы набрали: {this.state.points}</p>
+          <p>Поздравляем! Вы выиграли!!! Вы набрали: {this.state.points} {extraCongratilation}</p>
           <p className='quize-restart' onClick = {() => this.restartGame()}>Начать игру заново</p>
         </div>
       </div>
