@@ -1,6 +1,6 @@
 import React from 'react';
-
-import QuizeTask from '../quizeTask/quizeTask';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/src/styles.scss';
 import './birdDescription.scss';
 
 class BirdDescription extends React.PureComponent {
@@ -18,8 +18,22 @@ class BirdDescription extends React.PureComponent {
         <div className={classNameInformer}>
           <p>Прослушайте плеер и выберите название птицы</p>
         </div>
+
         <div className={classNameDescription}>
-        <QuizeTask />
+          <div className="quize-task">
+          <img className="qiuze-task__image" src={this.props.quizeAnswerBirdInfo.image} alt="quize bird" />
+          <div>
+            <p>{this.props.quizeAnswerBirdInfo.name}</p>
+            <div className="quize-task__rightWrapper">
+              <p>{this.props.quizeAnswerBirdInfo.species}</p>
+            </div>
+          </div>
+        </div>
+        <AudioPlayer 
+            src={this.props.quizeAnswerBirdInfo.audio}
+            autoPlayAfterSrcChange={false}
+            />
+        <p>{this.props.quizeAnswerBirdInfo.description}</p>
         </div>
       </div>
     );

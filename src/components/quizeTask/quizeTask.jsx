@@ -1,7 +1,6 @@
 import React from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/src/styles.scss';
-import birdImage from '../../assets/images/bird.jpg';
 import './quizeTask.scss';
 
 class QuizeTask extends React.PureComponent {
