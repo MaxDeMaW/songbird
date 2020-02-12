@@ -10,3 +10,10 @@
     background-color: whitesmoke;
     color: black;
 }
+
+
+@media (max-width: 500px) {
+    .qiuze-header__element p {
+        margin: 0px;
+    }
+}

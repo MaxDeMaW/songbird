@@ -5,7 +5,7 @@ import Header from './components/header';
 import QuizeTypes from './components/quizeTypes/quizeTypes';
 import QuizeTask from './components/quizeTask/quizeTask';
 import SelectorAnswer from './components/selectorAnswer/selectorAnswer';
-import BirdDescription from './components/birdDescription';
+import BirdDescription from './components/birdDescription/birdDescription';
 
 import QuizeNext from './components/quizeNext/quizeNext';
 import birdsData from './assets/birdData'
@@ -29,7 +29,8 @@ class App extends React.Component {
       voiceBirds: this.data[this.stage].birds[0].audio,
       quizeBirdName: '***',
       quizeBirdImage: '',
-      isActiveNextStage: false
+      isActiveNextStage: false,
+      attemptGuess: 0
     };
     this.initializeNewGame();
   }
@@ -90,19 +91,13 @@ class App extends React.Component {
   }
 
   nextQuize() {
-
-
-
     if (this.stage<this.maxStages) { 
       this.stage++;
     } else {
       this.stage=0;
     }
-  console.log(this.stage);
-  console.log(this.getBirdsListToQuize(this.stage));
-
-
-
+    console.log(this.stage);
+    console.log(this.getBirdsListToQuize(this.stage));
     this.setState((state) => {
       return {
         //поменять массив названий птиц в стейт
@@ -112,7 +107,9 @@ class App extends React.Component {
         // скрыть значение загаданной птицы
         quizeBirdName: '***',
         // сделать неактивным кнопку следующий уровень
-        isActiveNextStage: false
+        isActiveNextStage: false,
+        // обнулить количество попыток угадывания
+        attemptGuess: 0
       };
     });
 
@@ -123,6 +120,12 @@ class App extends React.Component {
   }
 
   clickAnswerBtn(bird) {
+    this.setState((state) => {
+      return {
+        attemptGuess: this.state.attemptGuess + 1
+      };
+    });
+
     if (bird === this.uncnownBird) 
     {
       console.log('УГАДАЛИ!!!');
@@ -159,8 +162,9 @@ class App extends React.Component {
         <QuizeTypes quizesTypes={this.typesOfQuize}  currentStage={this.state.currentStage} />
         <QuizeTask voiceBirds={this.state.voiceBirds} quizeBirdName={this.state.quizeBirdName} quizeBirdImage={this.state.quizeBirdImage}/>
         <div className="answer-container">
-          <SelectorAnswer birdName={this.state.birds} clickAnswer={(event) => this.clickAnswerBtn(event)}/>
-          <BirdDescription />
+          <SelectorAnswer birdName={this.state.birds}
+                          clickAnswer={(event) => this.clickAnswerBtn(event)}/>
+          <BirdDescription attemptGuess={this.state.attemptGuess}/>
         </div>
         <QuizeNext score={1} isActiveNextStage={this.state.isActiveNextStage} nextQuize={()=> this.nextQuize()}/>
       <p>{this.state.voiceBirds}</p>

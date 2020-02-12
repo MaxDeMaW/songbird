@@ -7,3 +7,10 @@
 .header__logo {
     height: 100%;
 }
+
+
+@media (max-width: 500px) {
+    .header {
+        height: 44px;
+    }
+}
