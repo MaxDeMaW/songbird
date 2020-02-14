@@ -10,6 +10,8 @@ import QuizeNext from './components/quizeNext/quizeNext';
 
 import birdsData from './assets/birdData'
 import birdImage from './assets/images/bird.jpg';
+import soundGuess from './assets/audio/guess.mp3'
+import soundWrong from './assets/audio/notguess.mp3'
 
 import './sass/main.scss';
 
@@ -36,6 +38,12 @@ class App extends React.Component {
     };
     this.initializeNewGame();
   }
+
+  playSound(src) {
+    const audio = new Audio();
+    audio.src = src;
+    audio.autoplay = true;
+  };
 
   showBird(bird) {
     this.setState((state) => {
@@ -122,8 +130,10 @@ class App extends React.Component {
           attemptGuess: 6
         };
       });
+      this.playSound(soundGuess);
     } else {
       this.setActiveButton(bird, 2);
+      this.playSound(soundWrong);
     }
   };
 
