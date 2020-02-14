@@ -1,0 +1,19 @@
+.quize-task__rightWrapper {
+    width: 100%;
+}
+
+.qiuze-task__image{
+    height: 140px;
+}
+
+.quize-task {
+    background-color: #303030;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 500px) {
+    .quize-task {
+        display: block;
+    }
+}

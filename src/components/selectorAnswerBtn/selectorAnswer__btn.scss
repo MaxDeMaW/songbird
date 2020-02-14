@@ -1,0 +1,21 @@
+.selector-answer__btn{
+    border: 1px solid gray;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #303030;
+}
+.selector-answer__btn:hover{
+cursor: pointer;
+background-color: whitesmoke;
+color: black;
+}
+.selector-answer__btn p{
+    margin: 0px;
+}
+.incorrect {
+    background: red;
+}
+.correct {
+    background: #008966;
+}

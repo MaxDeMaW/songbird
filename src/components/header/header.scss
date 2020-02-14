@@ -1,0 +1,16 @@
+.header {
+    color: whitesmoke;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .header__logo {
+    height: 100%;
+  }
+  
+  
+  @media (max-width: 500px) {
+    .header {
+        height: 44px;
+    }
+  }

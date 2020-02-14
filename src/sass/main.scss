@@ -1,0 +1,52 @@
+html,
+body {
+    background-color: #222222;
+    color: whitesmoke;
+}
+.main {
+    max-width: 1200px;
+    text-align: center;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// ************** Player *****************
+.rhap_container {
+  width: 100%;
+  min-width: 280px;
+  height: 90px;
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+}
+
+.rhap_progress-indicator {
+  background: #008966;
+}
+
+.rhap_time {
+  color: white;
+}
+// ***************************************
+
+// ************** CONTAINER **************
+.answer-container {
+  display: flex;
+}
+// ***************************************
+
+.hidden {
+  display: none;
+}
+
+.quize-restart {
+  background: #008966;
+  cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .answer-container {
+    display: block;
+  }
+}

@@ -1,0 +1,16 @@
+.qiuze-types__element {
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    transition: 1s;
+}
+.active {
+    background-color: whitesmoke;
+    color: black;
+}
+
+@media (max-width: 500px) {
+    .qiuze-types__element p {
+        margin: 0px;
+    }
+}
