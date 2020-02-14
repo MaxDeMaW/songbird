@@ -106,7 +106,7 @@ const birdsData =   [
         ]
     },
     {
-        type : 'Воробьиные',   
+        type : 'Лесные',   
         birds : [
             {
                 id: 13,
@@ -159,7 +159,7 @@ const birdsData =   [
         ]
     },
     {
-      type : 'Лесные птицы',   
+      type : 'Певчие',   
       birds : [
         {
           id: 19,
@@ -212,7 +212,7 @@ const birdsData =   [
       ]
     },
     {
-      type : 'Хищные птицы',   
+      type : 'Хищные',   
       birds : [
         {
           id: 25,
@@ -265,7 +265,7 @@ const birdsData =   [
       ]
     },
     {  
-    type : 'Морские птицы',   
+    type : 'Морские',   
     birds : [
         {
           id: 31,

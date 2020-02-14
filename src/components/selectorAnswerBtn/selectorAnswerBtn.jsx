@@ -15,7 +15,9 @@ class SelectorAnswerBtn extends React.PureComponent {
     let classNames = 'selector-answer__btn';
     if (this.props.stateButtons===1) classNames += ' correct';
     if (this.props.stateButtons===2) classNames += ' incorrect';
-    return <div className={classNames} onClick={this.onLabelClick}> <p>{this.props.birdName} </p></div>;
+    return <div className={classNames} onClick={this.onLabelClick}>
+      <p>{this.props.birdName}</p>
+      </div>;
   }
 }
 

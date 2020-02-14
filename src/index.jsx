@@ -6,10 +6,11 @@ import QuizeTypes from './components/quizeTypes/quizeTypes';
 import QuizeTask from './components/quizeTask/quizeTask';
 import SelectorAnswer from './components/selectorAnswer/selectorAnswer';
 import BirdDescription from './components/birdDescription/birdDescription';
+import QuizeNext from './components/quizeNext/quizeNext';
+
+import birdsData from './assets/birdData'
 import birdImage from './assets/images/bird.jpg';
 
-import QuizeNext from './components/quizeNext/quizeNext';
-import birdsData from './assets/birdData'
 import './sass/main.scss';
 
 class App extends React.Component {
@@ -17,10 +18,9 @@ class App extends React.Component {
     super();
     this.stage = 0;
     this.maxStages = 0;
-    this.score = 0;
     this.data = birdsData;
     this.uncnownBird = null;
-    this.typesOfQuize = ['Разминка', 'Воробьиные', 'Лесные', 'Певчие', 'Хищные', 'Морские'];
+    this.typesOfQuize = this.data.map(({type})=>type);
     this.isFinish = false;
     this.state = {
       points: 0,
@@ -35,11 +35,6 @@ class App extends React.Component {
       stateButtons: [0,0,0,0,0,0]
     };
     this.initializeNewGame();
-  }
-
-  initializeNewGame() {
-      this.maxStages = this.data.length-1;
-      this.getBirdsListToQuize(this.stage);
   }
 
   showBird(bird) {
@@ -57,7 +52,6 @@ class App extends React.Component {
   }
 
   getBirdsListToQuize(stageQuize) {
-
     const listBirdsNameInQuize = this.data[stageQuize].birds.map(({name})=>name);
     return listBirdsNameInQuize;
   }
@@ -137,13 +131,17 @@ class App extends React.Component {
     this.setState((state) => {
       return {points: state.points + 1};
     });
-    this.score++;
     this.getBirdsListToQuize(1);
 
   }
 
   restartGame() {
     document.location.reload(true);
+  }
+
+  initializeNewGame() {
+    this.maxStages = this.data.length-1;
+    this.getBirdsListToQuize(this.stage);
   }
 
   render() {
@@ -172,7 +170,7 @@ class App extends React.Component {
           <QuizeNext score={1} isActiveNextStage={this.state.isActiveNextStage} nextQuize={()=> this.nextQuize()}/>
         </div>
         <div className={classNameCongratulate}>
-          <p>Поздравляем! Вы выиграли!!! Вы набрали: {this.state.points} {extraCongratilation}</p>
+          <p>Поздравляем! Вы выиграли!!! Вы набрали {this.state.points} {extraCongratilation}</p>
           <p className='quize-restart' onClick = {() => this.restartGame()}>Начать игру заново</p>
         </div>
       </div>
